@@ -6,15 +6,16 @@ db = DB()
 table = Rating(db.conn)
 
 
-@app.route('/rating', methods=['POST'])
+@app.route('/sender', methods=['GET'])
 def get_rating():
     if not request.json:
         return jsonify({'error': 'Empty request'})
     db = DB()
     table = Rating(db.get_connection())
     table.init_table()
+    print(request.json['operation'])
     if request.json['operation'] == 'get5':
-        return table.return_first_5()
+        return jsonify({'res': table.return_first_5()})
     elif request.json['operation'] == 'get_user':
         return table.find_user(request.json['user'])
     elif request.json['operation'] == 'post':
@@ -39,7 +40,7 @@ def show_rating():
                         crossorigin="anonymous">
                         <title>Привет, Яндекс!</title>
                       </head>
-                      <body> 
+                      <body>
                         <table class="table">
                           <tbody>'''
     for i in range(len(rows)):

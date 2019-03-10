@@ -47,17 +47,18 @@ class Rating:
         cursor.execute("SELECT * FROM rating")
         rows = cursor.fetchall()
         rows = sorted(rows, key=lambda x: int(x[2]))
-        i = 0
         for i in range(len(rows)):
             if rows[i][1] == user_name:
                 break
+        else:
+            return None
         return i + 1, user_name, int(rows[i][2])
 
     def return_first_5(self):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM rating")
         rows = cursor.fetchall()
-        rows = sorted(rows, key=lambda x: int(x[2]))
+        rows = sorted(rows, key=lambda x: int(x[2]), reverse=True)
         return rows[:5]
 
     def return_all_lines(self):
