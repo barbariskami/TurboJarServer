@@ -13,11 +13,10 @@ def get_rating():
     db = DB()
     table = Rating(db.get_connection())
     table.init_table()
-    print(request.json['operation'])
     if request.json['operation'] == 'get5':
         return jsonify({'res': table.return_first_5()})
     elif request.json['operation'] == 'get_user':
-        return table.find_user(request.json['user'])
+        return jsonify({'res': table.find_user(request.json['user'])})
     elif request.json['operation'] == 'post':
         table.add_user(request.json['user'], request.json['result'])
 

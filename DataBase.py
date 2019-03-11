@@ -46,7 +46,7 @@ class Rating:
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM rating")
         rows = cursor.fetchall()
-        rows = sorted(rows, key=lambda x: int(x[2]))
+        rows = sorted(rows, key=lambda x: int(x[2]), reverse=True)
         for i in range(len(rows)):
             if rows[i][1] == user_name:
                 break
